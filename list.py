@@ -70,3 +70,37 @@ print(dir(list))
 
 list5 = [123,456,789,123,123]
 print(list5.count(123))
+print(list5.index(123))
+
+#### list.reverse() ####
+list6 = [1,2,3,4,5,6]
+print("list6 = ",list6)
+list6.reverse()
+print("list6.reverse(): ",list6)
+
+#### list.sort ####
+list7 = [2,3,1,6,4,5]
+print("list7: ",list7)
+list7.sort()
+print("list7.sort(): ",list7)
+list7.sort(reverse=True)
+print("list7.sort(): ",list7)
+
+#### 关于拷贝 ####
+list11 = [1,3,2,9,7,8]
+list12 = list11
+list13 = list11[:]
+print("list12: ",list12)
+print("list13: ",list13)
+list11.sort()
+print("list11.sort()")
+print("list12: ",list12)
+print("list13: ",list13)
+
+#### 元组 ####
+print("-----元组----")
+tuple1 = (1,2)
+print("tuple1 = ",tuple1)
+print("----更新元组----")
+tuple1 = tuple1[:] + tuple1
+print(tuple1)
