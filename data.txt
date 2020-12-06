@@ -1,0 +1,25 @@
+[dsp_ml_tk1] id:0, cx:335, cy:117, w:400, h:150
+2222222222222222222222222222222222222
+[dsp_ml_tk1] id:1, cx:346, cy:137, w:400, h:150
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+[dsp_ml_tk1] id:2, cx:357, cy:177, w:500, h:150
+[dsp_ml_tk1] id:3, cx:360, cy:217, w:600, h:150
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+[dsp_ml_tk1] id:4, cx:379, cy:137, w:100, h:150
+[dsp_ml_tk1] id:5, cx:380, cy:317, w:900, h:150
+[dsp_ml_tk1] id:6, cx:391, cy:167, w:500, h:150
+cccccccccccccccccccccccccccccccccccccccccc
+[dsp_ml_tk1] id:7, cx:442, cy:417, w:400, h:150
+[dsp_ml_tk1] id:8, cx:413, cy:497, w:560, h:150
+ddddddddddddddddddddddddddddddddd
+[dsp_ml_tk1] id:9, cx:424, cy:517, w:470, h:150
+11111111111111
+[dsp_ml_tk1] id:10, cx:465, cy:557, w:890, h:150
+000000000000000000000000000
+
+[dsp_ml_tk1] id:11, cx:476, cy:667, w:520, h:150
+
+[dsp_ml_tk1] id:12, cx:487, cy:777, w:150, h:150
+
+[dsp_ml_tk1] id:13, cx:508, cy:887, w:390, h:150
+[dsp_ml_tk1] id:14, cx:609, cy:997, w:600, h:150
