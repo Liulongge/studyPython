@@ -18,18 +18,21 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 #### 将图片保存为视频 ####
-img_input_path = 'D:\\image\\'#这里写你的文件夹路径，比如：/home/youname/data/img/,注意最后一个文件夹要有斜杠
-video_out_path = 'F:\\3.mp4'
-vedio_fps = 30    #保存视频的FPS，可以适当调整
-video_size=(512,512)
+img_input_path = 'D:\\image\\right\\'#这里写你的文件夹路径，比如：/home/youname/data/img/,注意最后一个文件夹要有斜杠
+video_out_path = 'D:\\image\\3.mp4'
+vedio_fps = 10    #保存视频的FPS，可以适当调整
+video_size=(1920,1080)
+image_index_start = 0
+image_index_end = 50
+image_format = ".BMP" 
 
 #可以用(*'DVIX')或(*'X264'),如果都不行先装ffmepg: sudo apt-get install ffmepg
 fourcc = cv2.VideoWriter_fourcc('M', 'P', '4', 'V' )
 videoWriter = cv2.VideoWriter(video_out_path, fourcc, vedio_fps, video_size)#最后一个是保存图片的尺寸
 
-for i in range(1,327):
+for i in range(image_index_start, image_index_end):
 #    frame = cv2.imread(img_input_path+str(i)+'.jpg')
-    frame = cv2.imread(img_input_path+ str(1) +'.jpg')
+    frame = cv2.imread(img_input_path+ str(i) + image_format)
     videoWriter.write(frame)
 videoWriter.release()
 

@@ -1,1 +1,1 @@
-temp
+img_input_path
