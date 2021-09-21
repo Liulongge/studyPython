@@ -2,8 +2,8 @@ import cv2
 
 camera = cv2.VideoCapture(0)
 cv2.namedWindow('MyCamera')
-face_cascade = cv2.CascadeClassifier(r"E:/ProgramData/Anaconda3/Lib/site-packages/cv2/data/haarcascade_frontalface_default.xml")
-eye_cascade = cv2.CascadeClassifier(r"E:/ProgramData/Anaconda3/Lib/site-packages/cv2/data/haarcascade_eye_tree_eyeglasses.xml")
+face_cascade = cv2.CascadeClassifier(r"/Users/runge.liu/miniforge3/envs/ml/share/opencv4/haarcascades/haarcascade_frontalface_default.xml")
+eye_cascade = cv2.CascadeClassifier(r"/Users/runge.liu/miniforge3/envs/ml/share/opencv4/haarcascades/haarcascade_eye_tree_eyeglasses.xml")
 
 while True:
     success, frame = camera.read()
