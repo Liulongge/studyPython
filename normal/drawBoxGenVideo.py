@@ -16,7 +16,7 @@ video_size=(1920,1080)               #视频格式大小
 image_format = ".BMP"                #视频格式
 extract_key = r"id:(.*), cx:(.*), cy:(.*), w:(.*), h:(.*)"
 
-filter_key = "[dsp_ml_tk1]"        
+filter_key = "[key_word]"        
 origin_file_name = "D:\\image\\data.txt"              #未过滤文本文件路径
 filter_file_name = "D:\\image\\data_filter.txt"       #过滤后文件存放路径
 
