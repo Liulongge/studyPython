@@ -56,3 +56,6 @@ print(favorite_language)
 age = 23
 message = "Happy " + str(age) + "rd Birthday!"
 print(message)
+
+
+# 彩色打印
