@@ -61,3 +61,24 @@ print("========================== numpy中的数据类型(保留x位小数)")
 t8 = np.round(t7, 2) # 取两位小数
 print(t8)
 print(t8.dtype)
+
+# 创建全为0, 1的数组
+print("========================== numpy中特殊数组创建")
+t = np.ones((2, 3))
+print("创建全为1的数组: \n", t)
+t = np.zeros((2, 3))
+print("创建全为0的数组: \n", t)
+t = np.eye((5))
+print("创建对角线为1的方阵: \n", t)
+
+print("argmax取最大值位置: \n", np.argmax(t, axis=0))
+t[t == 1] = -1
+print("argmax取最大值位置: \n", np.argmin(t, axis=1))
+
+
+
+print("========================== copy与view")
+# copy与view
+# a = b 完全不复制，a和b相互影响
+# a = b[:] 视图的操作，一种切片，会创建显得对象a，但是a的数据完全由b保管，他们两个数据是完全一致的
+# a = b.copy() 复制，a和b互不影响
