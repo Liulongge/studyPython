@@ -22,9 +22,11 @@ class File_copy:
 def file_copy(storage_list) :
     # 调用copy_file函数，传入源文件路径和目标文件路径
     for i in range(0, len(storage_list)) :
-        shutil.copy(storage_list[i].src_path, storage_list[i].dst_path)
+        # shutil.copy(storage_list[i].src_path, storage_list[i].dst_path)
         print(storage_list[i].src_path, "->" ,storage_list[i].dst_path)
-
+        command = 'cp %s %s' % (storage_list[i].src_path, storage_list[i].dst_path)
+        # 执行Shell命令
+        os.system(command)
     
 def model_build_parse(json_desc, storage_list) :
     for i in range(0, len(json_desc)) :
