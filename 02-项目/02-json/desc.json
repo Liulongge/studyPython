@@ -1,0 +1,37 @@
+{
+    "name_a":
+    {
+        "platform":"platform_a",
+        "ndk_path":"./ndk21",
+        "model_a":
+        {
+            "model_build":
+            {
+                "0":"test_a",
+                "1":"test_b",
+                "2":"test_c"
+            },
+            "file_copy":
+            {
+                "0":{ "src_path":"./src_path/libtest_a.so", "dst_path":"./dst_path/libtest_aa.so" },
+                "1":{ "src_path":"./src_path/test_b", "dst_path":"./dst_path/test_bb" },
+                "2":{ "src_path":"./src_path/cfg_c.json", "dst_path":"./dst_path/cfg_cc.json" }
+            }   
+        },
+        "model_b":
+        {
+            "model_build":
+            {
+                "0":"test_d",
+                "1":"test_e",
+                "2":"test_f"
+            },
+            "file_copy":
+            {
+                "0":{ "src_path":"./src_path/libtest_d.so", "dst_path":"./dst_path/libtest_dd.so" },
+                "1":{ "src_path":"./src_path/test_e", "dst_path":"./dst_path/test_ee" },
+                "2":{ "src_path":"./src_path/cfg_f.json", "dst_path":"./dst_path/cfg_ff.json" }
+            }
+        }
+    }
+}
