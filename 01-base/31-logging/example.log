@@ -1,0 +1,5 @@
+10/22/2023 21:33:17 PM - DEBUG - [00-logging.py __main__ 30]: Debugging information
+10/22/2023 21:33:17 PM - INFO - [00-logging.py __main__ 31]: Informational message
+10/22/2023 21:33:17 PM - WARNING - [00-logging.py __main__ 32]: Warning message
+10/22/2023 21:33:17 PM - ERROR - [00-logging.py __main__ 33]: Error message
+10/22/2023 21:33:17 PM - CRITICAL - [00-logging.py __main__ 34]: Critical message
