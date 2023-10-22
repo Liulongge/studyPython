@@ -1,9 +1,7 @@
 
 
 # 1、使用类和实例
-# 你可以使用类来模拟现实世界中的很多情景。类编写好后，你的大部分时间都将花在使用根
-# 据类创建的实例上。你需要执行的一个重要任务是修改实例的属性。你可以直接修改实例的属性，
-# 也可以编写方法以特定的方式进行修改。
+# 可以使用类来模拟现实世界中的很多情景。
 print("========================== 使用类和实例")
 class Car(): 
     """一次模拟汽车的简单尝试""" 
@@ -52,18 +50,22 @@ my_new_car.read_odometer()
 
 # 3、修改属性的值
 print("========================== 修改属性的值(直接通过实例进行修改)")
-# 可以以三种不同的方式修改属性的值：直接通过实例进行修改；通过方法进行设置；通过方法进行递增（增加特定的值）。
+# 可以以三种不同的方式修改属性的值：
+
+# 1. 直接通过实例进行修改
 my_new_car = Car('audi', 'a4', 2016) 
 print(my_new_car.get_descriptive_name())
 my_new_car.odometer_reading = 23 
 my_new_car.read_odometer()
 
+# 2. 通过方法进行设置
 print("========================== 修改属性的值( 通过方法修改属性的值)")
 my_new_car = Car('audi', 'a4', 2016) 
 print(my_new_car.get_descriptive_name()) 
 my_new_car.update_odometer(27) 
 my_new_car.read_odometer()
 
+# 3. 通过方法进行递增（增加特定的值）
 print("========================== 修改属性的值(通过方法对属性的值进行递增)")
 my_used_car = Car('subaru', 'outback', 2013) 
 print(my_used_car.get_descriptive_name()) 
