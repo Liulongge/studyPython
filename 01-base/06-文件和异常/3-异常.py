@@ -1,135 +1,119 @@
+# 参考: 
+# https://blog.csdn.net/frighting_ing/article/details/122780074?spm=1001.2014.3001.5506
+# https://blog.csdn.net/weixin_64817459/article/details/124367262?spm=1001.2014.3001.5506
+# https://blog.csdn.net/weixin_64817459/article/details/124367262?spm=1001.2014.3001.5506
 
-# 总结：
-# 异常：ZeroDivisionError、FileNotFoundError
-# try - except
-# try - except - else
+# python的底层运算逻辑中设计了很多的计算规则，当我们代码中的运算逻辑符合这些计算规则时，才会被python认定为正常。
+# 如果我们代码中的运算逻辑不符合这些计算规则，则会被当作异常错误抛出。当python抛出异常错误时，执行该代码的程序将会被立即终止。
 
-# Python使用被称为异常的特殊对象来管理程序执行期间发生的错误。每当发生让Python不知所措的错误时，它都会创建一个异常对象。
-# 如果你编写了处理该异常的代码，程序将继续运行；如果你未对异常进行处理，程序将停止，并显示一个traceback，其中包含有关异常的报告。
-# 异常是使用try-except代码块处理的。try-except代码块让Python执行指定的操作，同时告诉Python发生异常时怎么办。
-# 使用了try-except代码块时，即便出现异常，程序也将继续运行：显示你编写的友好的错误消息，而不是令用户迷惑的traceback。
+# BaseException是所有内置异常的基类，但用户定义的类并不直接继承BaseException，
+# 所有的异常类都是从Exception继承，且都在exceptions模块中定义。
+# Python自动将所有异常名称放在内建命名空间中，所以程序不必导入exceptions模块即可使用异常。
+# 一旦引发而且没有捕捉SystemExit异常，程序执行就会终止。如果交互式会话遇到一个未被捕捉的SystemExit异常，会话就会终止。
 
-# 1、处理 ZeroDivisionError 异常
-print("========================== 处理 ZeroDivisionError 异常")
-# print(5/0)
+# 内置异常类的层次结构如下：
+# BaseException  # 所有异常的基类
+#  +-- SystemExit  # 解释器请求退出
+#  +-- KeyboardInterrupt  # 用户中断执行(通常是输入^C)
+#  +-- GeneratorExit  # 生成器(generator)发生异常来通知退出
+#  +-- Exception  # 常规异常的基类
+#       +-- StopIteration  # 迭代器没有更多的值
+#       +-- StopAsyncIteration  # 必须通过异步迭代器对象的__anext__()方法引发以停止迭代
+#       +-- ArithmeticError  # 各种算术错误引发的内置异常的基类
+#       |    +-- FloatingPointError  # 浮点计算错误
+#       |    +-- OverflowError  # 数值运算结果太大无法表示
+#       |    +-- ZeroDivisionError  # 除(或取模)零 (所有数据类型)
+#       +-- AssertionError  # 当assert语句失败时引发
+#       +-- AttributeError  # 属性引用或赋值失败
+#       +-- BufferError  # 无法执行与缓冲区相关的操作时引发
+#       +-- EOFError  # 当input()函数在没有读取任何数据的情况下达到文件结束条件(EOF)时引发
+#       +-- ImportError  # 导入模块/对象失败
+#       |    +-- ModuleNotFoundError  # 无法找到模块或在在sys.modules中找到None
+#       +-- LookupError  # 映射或序列上使用的键或索引无效时引发的异常的基类
+#       |    +-- IndexError  # 序列中没有此索引(index)
+#       |    +-- KeyError  # 映射中没有这个键
+#       +-- MemoryError  # 内存溢出错误(对于Python 解释器不是致命的)
+#       +-- NameError  # 未声明/初始化对象 (没有属性)
+#       |    +-- UnboundLocalError  # 访问未初始化的本地变量
+#       +-- OSError  # 操作系统错误，EnvironmentError，IOError，WindowsError，socket.error，select.error和mmap.error已合并到OSError中，构造函数可能返回子类
+#       |    +-- BlockingIOError  # 操作将阻塞对象(e.g. socket)设置为非阻塞操作
+#       |    +-- ChildProcessError  # 在子进程上的操作失败
+#       |    +-- ConnectionError  # 与连接相关的异常的基类
+#       |    |    +-- BrokenPipeError  # 另一端关闭时尝试写入管道或试图在已关闭写入的套接字上写入
+#       |    |    +-- ConnectionAbortedError  # 连接尝试被对等方中止
+#       |    |    +-- ConnectionRefusedError  # 连接尝试被对等方拒绝
+#       |    |    +-- ConnectionResetError    # 连接由对等方重置
+#       |    +-- FileExistsError  # 创建已存在的文件或目录
+#       |    +-- FileNotFoundError  # 请求不存在的文件或目录
+#       |    +-- InterruptedError  # 系统调用被输入信号中断
+#       |    +-- IsADirectoryError  # 在目录上请求文件操作(例如 os.remove())
+#       |    +-- NotADirectoryError  # 在不是目录的事物上请求目录操作(例如 os.listdir())
+#       |    +-- PermissionError  # 尝试在没有足够访问权限的情况下运行操作
+#       |    +-- ProcessLookupError  # 给定进程不存在
+#       |    +-- TimeoutError  # 系统函数在系统级别超时
+#       +-- ReferenceError  # weakref.proxy()函数创建的弱引用试图访问已经垃圾回收了的对象
+#       +-- RuntimeError  # 在检测到不属于任何其他类别的错误时触发
+#       |    +-- NotImplementedError  # 在用户定义的基类中，抽象方法要求派生类重写该方法或者正在开发的类指示仍然需要添加实际实现
+#       |    +-- RecursionError  # 解释器检测到超出最大递归深度
+#       +-- SyntaxError  # Python 语法错误
+#       |    +-- IndentationError  # 缩进错误
+#       |         +-- TabError  # Tab和空格混用
+#       +-- SystemError  # 解释器发现内部错误
+#       +-- TypeError  # 操作或函数应用于不适当类型的对象
+#       +-- ValueError  # 操作或函数接收到具有正确类型但值不合适的参数
+#       |    +-- UnicodeError  # 发生与Unicode相关的编码或解码错误
+#       |         +-- UnicodeDecodeError  # Unicode解码错误
+#       |         +-- UnicodeEncodeError  # Unicode编码错误
+#       |         +-- UnicodeTranslateError  # Unicode转码错误
+#       +-- Warning  # 警告的基类
+#            +-- DeprecationWarning  # 有关已弃用功能的警告的基类
+#            +-- PendingDeprecationWarning  # 有关不推荐使用功能的警告的基类
+#            +-- RuntimeWarning  # 有关可疑的运行时行为的警告的基类
+#            +-- SyntaxWarning  # 关于可疑语法警告的基类
+#            +-- UserWarning  # 用户代码生成警告的基类
+#            +-- FutureWarning  # 有关已弃用功能的警告的基类
+#            +-- ImportWarning  # 关于模块导入时可能出错的警告的基类
+#            +-- UnicodeWarning  # 与Unicode相关的警告的基类
+#            +-- BytesWarning  # 与bytes和bytearray相关的警告的基类
+#            +-- ResourceWarning  # 与资源使用相关的警告的基类。被默认警告过滤器忽略。
 
-# 2、使用 try-except 代码块
-print("========================== try-except")
-# 当你认为可能发生了错误时，可编写一个try-except代码块来处理可能引发的异常。
-# 你让Python尝试运行一些代码，并告诉它如果这些代码引发了指定的异常，该怎么办。
-# 处理ZeroDivisionError异常的try-except代码块类似于下面这样：
 
-# 我们将导致错误的代码行print(5/0)放在了一个try代码块中。如果try代码块中的代码运行起来没有问题，
-# Python将跳过except代码块；如果try代码块中的代码导致了错误，Python将查找这样的except代码块，并运行其中的代码，
-# 即其中指定的错误与引发的错误相同。
-# 在这个示例中，try代码块中的代码引发了ZeroDivisionError异常，因此Python指出了该如何解决问题的except代码块，并运行其中的代码。
-# 这样，用户看到的是一条友好的错误消息，而不是traceback：
-try: 
-    print(5/0) 
-except ZeroDivisionError: 
-    print("You can't divide by zero!")
+'''
+基本语句:
+try:
+    # 尝试执行的代码
+    pass
+except 错误类型1:
+    # 针对错误类型1，对应的代码处理
+    pass
+except 错误类型2:
+    # 针对错误类型2，对应的代码处理
+    pass
+except (错误类型3, 错误类型4):
+    # 针对错误类型3 和 4，对应的代码处理
+    pass
+except Exception as result:
+    # 打印错误信息
+    print(result)
+else:
+    # 没有异常才会执行的代码
+    pass
+finally:
+    # 无论是否有异常，都会执行的代码
+    print("无论是否有异常，都会执行的代码")
+'''
 
-
-# 3、使用异常避免崩溃
-print("========================== 使用异常避免崩溃 try-except-else")
-# 发生错误时，如果程序还有工作没有完成，妥善地处理错误就尤其重要。
-# 这种情况经常会出现在要求用户提供输入的程序中；
-# 如果程序能够妥善地处理无效输入，就能再提示用户提供有效输入，而不至于崩溃。
-# 下面来创建一个只执行除法运算的简单计算器：
-
-# 通过将可能引发错误的代码放在try-except代码块中，可提高这个程序抵御错误的能力。
-# 错误是执行除法运算的代码行导致的，因此我们需要将它放到try-except代码块中。
-# 这个示例还包含一个else代码块；依赖于try代码块成功执行的代码都应放到else代码块中：
-
-# try-except-else代码块的工作原理大致如下：Python尝试执行try代码块中的代码；
-# 只有可能引发异常的代码才需要放在try语句中。
-# 有时候，有一些仅在try代码块成功执行时才需要运行的代码；这些代码应放在else代码块中。
-# except代码块告诉Python，如果它尝试运行try代码块中的代码时引发了指定的异常，该怎么办。
-# 通过预测可能发生错误的代码，可编写健壮的程序，它们即便面临无效数据或缺少资源，也能继续运行，从而能够抵御无意的用户错误和恶意的攻击。
-
-print("Give me two numbers, and I'll divide them.") 
-
-first_number = input("\nFirst number: ") 
-second_number = input("Second number: ") 
-try: 
-    answer = int(first_number) / int(second_number) 
-except ZeroDivisionError: 
-    print("You can't divide by 0!") 
-else: 
-    print(answer)
-
-
-# 4、处理 FileNotFoundError 异常
-print("========================== 处理 FileNotFoundError 异常")
-# 使用文件时，一种常见的问题是找不到文件：你要查找的文件可能在其他地方、文件名可能不正确或者这个文件根本就不存在。
-# 对于所有这些情形，都可使用try-except代码块以直观的方式进行处理。
-# 我们来尝试读取一个不存在的文件。下面的程序尝试读取文件alice.txt的内容，但我没有将这个文件存储在alice.py所在的目录中：
-# 在这个示例中，try代码块引发FileNotFoundError异常，因此Python找出与该错误匹配的except代码块，并运行其中的代码。
-# 最终的结果是显示一条友好的错误消息，而不是traceback：
-filename = 'alice2.txt'
-
-try: 
-    with open(filename) as f_obj: 
-        contents = f_obj.read() 
-except FileNotFoundError: 
-    msg = "Sorry, the file " + filename + " does not exist." 
-    print(msg)
-
-# 5、分析文本
-print("========================== 分析文本")
-# 你可以分析包含整本书的文本文件。很多经典文学作品都是以简单文本文件的方式提供的，因为它们不受版权限制。
-# 下面来提取童话Alice in Wonderland的文本，并尝试计算它包含多少个单词。
-# 我们将使用方法split()，它根据一个字符串创建一个单词列表。下面是对只包含童话名"Alice in Wonderland"的字符串调用方法split()的结果。
-# 方法split()以空格为分隔符将字符串分拆成多个部分，并将这些部分都存储到一个列表中。
-# 结果是一个包含字符串中所有单词的列表，虽然有些单词可能包含标点。为计算Alice in Wonderland包含多少个单词，
-# 我们将对整篇小说调用split()，再计算得到的列表包含多少个元素，从而确定整篇童话大致包含多少个单词：
-
-# 我们把文件alice.txt移到了正确的目录中，让try代码块能够成功地执行。
-# 我们对变量contents调用方法split()，以生成一个列表，其中包含这部童话中的所有单词。
-# 当我们使用len()来确定这个列表的长度时，就知道了原始字符串大致包含多少个单词。
-# 我们打印一条消息，指出文件包含多少个单词。这些代码都放在else代码块中，因为仅当try代码块成功执行时才执行它们。
-# 输出指出了文件alice.txt包含多少个单词：
-
-filename = 'alice.txt' 
-try: 
-    with open(filename) as f_obj: 
-        contents = f_obj.read() 
-except FileNotFoundError:
-    msg = "Sorry, the file " + filename + " does not exist." 
-    print(msg) 
-else: 
-    # 计算文件大致包含多少个单词
-    words = contents.split() 
-    num_words = len(words) 
-    print("The file " + filename + " has about " + str(num_words) + " words.")
-
-# 6、使用多个文件
-# 现在可以编写一个简单的循环，计算要分析的任何文本包含多少个单词了。
-# 为此，我们将要分析的文件的名称存储在一个列表中，然后对列表中的每个文件都调用count_words()。
-# 我们将尝试计算Alice in Wonderland、Siddhartha、Moby Dick和Little Women分别包含多少个单词，它们都不受版权限制。
-# 我故意没有将siddhartha.txt放到word_count.py所在的目录中，让你能够看到这个程序在文件不存在时处理得有多出色：
-
-# 使用try-except代码块提供了两个重要的优点：避免让用户看到traceback；
-# 让程序能够继续分析能够找到的其他文件。如果不捕获因找不到siddhartha.txt而引发的FileNotFoundError异常，
-# 用户将看到完整的traceback，而程序将在尝试分析Siddhartha后停止运行——根本不分析Moby Dick和Little Women。
-print("========================== 使用多个文件")
-def count_words(filename): 
-    """计算一个文件大致包含多少个单词""" 
-    try: 
-        with open(filename) as f_obj: 
-            contents = f_obj.read() 
-    except FileNotFoundError: 
-        msg = "Sorry, the file " + filename + " does not exist." 
-        print(msg) 
-    else: 
-        # 计算文件大致包含多少个单词
-        words = contents.split() 
-        num_words = len(words) 
-        print("The file " + filename + " has about " + str(num_words) + " words.") 
-
-filenames = ['alice.txt', 'siddhartha.txt', 'moby_dick.txt', 'little_women.txt'] 
-for filename in filenames: 
-    count_words(filename)
-
-# 7、失败时一声不吭
-print("========================== 失败时一声不吭/决定报告哪些错误")
+try:
+    num = int(input("输入一个整数："))  # 输入可能为字母
+    result = 8 / num  # 除数不能为0
+    print(result)
+except ZeroDivisionError:
+    print("除0错误, 输入的数不能为0")
+except ValueError:
+    print("值错误, 请输入正确的整数")
+except Exception as ex:
+    print("捕获其他未知的异常{}".format(ex))
+else:
+    print("执行正确, 无任何异常")
+finally:
+    print("无论如何均会执行") 
