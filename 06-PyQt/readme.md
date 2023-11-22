@@ -24,4 +24,6 @@
         QtGui: 包含了窗口系统、事件处理、2D图像、基本绘画、字体和文字类；
         QtWidget: 包含了一系列创建桌面应用的UI元素。
 
-   
+## 课程
+        https://www.bilibili.com/video/BV1LT4y1e72X?p=28
+        https://doc.itprojects.cn/0001.zhishi/python.0008.pyqt5rumen/index.html#/08.duoxiancheng
